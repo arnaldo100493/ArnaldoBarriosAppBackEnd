@@ -36,23 +36,29 @@ public class Persona implements Serializable {
 
     @Column
     private String apellido;
+    
+    @Column
+    private String correoElectronico;
 
     public Persona() {
         this.idPersona = 0;
         this.nombre = "";
         this.apellido = "";
+        this.correoElectronico = "";
     }
 
-    public Persona(String nombre, String apellido) {
+    public Persona(String nombre, String apellido, String correoElectronico) {
         this.idPersona = 0;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.correoElectronico = correoElectronico;
     }
 
-    public Persona(Integer id, String nombre, String apellido) {
+    public Persona(Integer id, String nombre, String apellido, String correoElectronico) {
         this.idPersona = id;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.correoElectronico = correoElectronico;
     }
 
     /**
@@ -97,8 +103,22 @@ public class Persona implements Serializable {
         this.apellido = apellido;
     }
 
+    /**
+     * @return the correoElectronico
+     */
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    /**
+     * @param correoElectronico the correoElectronico to set
+     */
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
     @Override
     public String toString() {
-        return "Persona{" + "id=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido + '}';
+        return "Persona{" + "idPersona=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido + ", correoElectronico=" + correoElectronico + '}';
     }
 }
