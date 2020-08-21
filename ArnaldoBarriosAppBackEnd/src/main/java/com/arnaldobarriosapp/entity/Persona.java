@@ -6,119 +6,247 @@
 package com.arnaldobarriosapp.entity;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author abarrime
+ * @author abarrios
  */
 @Entity
 @Table(name = "persona")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p")
+    , @NamedQuery(name = "Persona.findByIdPersona", query = "SELECT p FROM Persona p WHERE p.idPersona = :idPersona")
+    , @NamedQuery(name = "Persona.findByIdentificacion", query = "SELECT p FROM Persona p WHERE p.identificacion = :identificacion")
+    , @NamedQuery(name = "Persona.findByTipoIdentificacion", query = "SELECT p FROM Persona p WHERE p.tipoIdentificacion = :tipoIdentificacion")
+    , @NamedQuery(name = "Persona.findByNombres", query = "SELECT p FROM Persona p WHERE p.nombres = :nombres")
+    , @NamedQuery(name = "Persona.findByApellidos", query = "SELECT p FROM Persona p WHERE p.apellidos = :apellidos")
+    , @NamedQuery(name = "Persona.findByTelefono", query = "SELECT p FROM Persona p WHERE p.telefono = :telefono")
+    , @NamedQuery(name = "Persona.findByCorreoElectronico", query = "SELECT p FROM Persona p WHERE p.correoElectronico = :correoElectronico")
+    , @NamedQuery(name = "Persona.findByEdad", query = "SELECT p FROM Persona p WHERE p.edad = :edad")
+    , @NamedQuery(name = "Persona.findByCiudad", query = "SELECT p FROM Persona p WHERE p.ciudad = :ciudad")
+    , @NamedQuery(name = "Persona.findByOcupacion", query = "SELECT p FROM Persona p WHERE p.ocupacion = :ocupacion")})
 public class Persona implements Serializable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 3648593832568027339L;
-
+    private static final long serialVersionUID = 1L;
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idPersona")
     private Integer idPersona;
-
-    @Column
-    private String nombre;
-
-    @Column
-    private String apellido;
-    
-    @Column
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "identificacion")
+    private String identificacion;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "tipo_identificacion")
+    private String tipoIdentificacion;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "nombres")
+    private String nombres;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "apellidos")
+    private String apellidos;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "telefono")
+    private String telefono;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "correo_electronico")
     private String correoElectronico;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 3)
+    @Column(name = "edad")
+    private String edad;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "ciudad")
+    private String ciudad;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "ocupacion")
+    private String ocupacion;
 
     public Persona() {
         this.idPersona = 0;
-        this.nombre = "";
-        this.apellido = "";
+        this.identificacion = "";
+        this.tipoIdentificacion = "";
+        this.nombres = "";
+        this.apellidos = "";
+        this.telefono = "";
         this.correoElectronico = "";
+        this.edad = "";
+        this.ciudad = "";
+        this.ocupacion = "";
     }
 
-    public Persona(String nombre, String apellido, String correoElectronico) {
+    public Persona(Integer idPersona) {
+        this.idPersona = idPersona;
+        this.identificacion = "";
+        this.tipoIdentificacion = "";
+        this.nombres = "";
+        this.apellidos = "";
+        this.telefono = "";
+        this.correoElectronico = "";
+        this.edad = "";
+        this.ciudad = "";
+        this.ocupacion = "";
+    }
+
+    public Persona(String identificacion, String tipoIdentificacion, String nombres, String apellidos, String telefono, String correoElectronico, String edad, String ciudad, String ocupacion) {
         this.idPersona = 0;
-        this.nombre = nombre;
-        this.apellido = apellido;
+        this.identificacion = identificacion;
+        this.tipoIdentificacion = tipoIdentificacion;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
         this.correoElectronico = correoElectronico;
+        this.edad = edad;
+        this.ciudad = ciudad;
+        this.ocupacion = ocupacion;
     }
 
-    public Persona(Integer id, String nombre, String apellido, String correoElectronico) {
-        this.idPersona = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
+    public Persona(Integer idPersona, String identificacion, String tipoIdentificacion, String nombres, String apellidos, String telefono, String correoElectronico, String edad, String ciudad, String ocupacion) {
+        this.idPersona = idPersona;
+        this.identificacion = identificacion;
+        this.tipoIdentificacion = tipoIdentificacion;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
         this.correoElectronico = correoElectronico;
+        this.edad = edad;
+        this.ciudad = ciudad;
+        this.ocupacion = ocupacion;
     }
-
-    /**
-     * @return the idPersona
-     */
+    
     public Integer getIdPersona() {
         return idPersona;
     }
 
-    /**
-     * @param idPersona the idPersona to set
-     */
     public void setIdPersona(Integer idPersona) {
         this.idPersona = idPersona;
     }
 
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
+    public String getIdentificacion() {
+        return identificacion;
     }
 
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
     }
 
-    /**
-     * @return the apellido
-     */
-    public String getApellido() {
-        return apellido;
+    public String getTipoIdentificacion() {
+        return tipoIdentificacion;
     }
 
-    /**
-     * @param apellido the apellido to set
-     */
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setTipoIdentificacion(String tipoIdentificacion) {
+        this.tipoIdentificacion = tipoIdentificacion;
     }
 
-    /**
-     * @return the correoElectronico
-     */
+    public String getNombres() {
+        return nombres;
+    }
+
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public String getCorreoElectronico() {
         return correoElectronico;
     }
 
-    /**
-     * @param correoElectronico the correoElectronico to set
-     */
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
 
+    public String getEdad() {
+        return edad;
+    }
+
+    public void setEdad(String edad) {
+        this.edad = edad;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getOcupacion() {
+        return ocupacion;
+    }
+
+    public void setOcupacion(String ocupacion) {
+        this.ocupacion = ocupacion;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idPersona != null ? idPersona.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Persona)) {
+            return false;
+        }
+        Persona other = (Persona) object;
+        if ((this.idPersona == null && other.idPersona != null) || (this.idPersona != null && !this.idPersona.equals(other.idPersona))) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
-        return "Persona{" + "idPersona=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido + ", correoElectronico=" + correoElectronico + '}';
+        return "com.arnaldobarriosapp.entity.Persona[ idPersona=" + idPersona + " ]";
     }
+    
 }

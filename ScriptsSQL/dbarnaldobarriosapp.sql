@@ -1,11 +1,18 @@
+drop table if exists persona;
 drop database if exists dbarnaldobarriosapp;
 
 create database if not exists dbarnaldobarriosapp;
 use dbarnaldobarriosapp;
 
 create table if not exists persona(
-   idPersona integer not null primary key,
-   nombre varchar(1000) not null,
-   apellido varchar(1000) not null,
-   correoElectronico varchar(1000) not null
+   idPersona long not null auto_increment primary key,
+   identificacion varchar(20) not null unique,
+   tipo_identificacion varchar(20) not null,
+   nombres varchar(60) not null,
+   apellidos varchar(60) not null,
+   telefono varchar(20) not null unique,
+   correo_electronico varchar(60) not null unique,
+   edad varchar(3) not null,
+   ciudad varchar(60) not null,
+   ocupacion varchar(100) not null
 );
