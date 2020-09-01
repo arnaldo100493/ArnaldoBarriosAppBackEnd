@@ -6,6 +6,7 @@
 package com.arnaldobarriosapp.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -37,14 +40,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Persona.findByCorreoElectronico", query = "SELECT p FROM Persona p WHERE p.correoElectronico = :correoElectronico")
     , @NamedQuery(name = "Persona.findByEdad", query = "SELECT p FROM Persona p WHERE p.edad = :edad")
     , @NamedQuery(name = "Persona.findByCiudad", query = "SELECT p FROM Persona p WHERE p.ciudad = :ciudad")
-    , @NamedQuery(name = "Persona.findByOcupacion", query = "SELECT p FROM Persona p WHERE p.ocupacion = :ocupacion")})
+    , @NamedQuery(name = "Persona.findByOcupacion", query = "SELECT p FROM Persona p WHERE p.ocupacion = :ocupacion")
+    , @NamedQuery(name = "Persona.findByFechaRegistro", query = "SELECT p FROM Persona p WHERE p.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "Persona.findByFechaModificacion", query = "SELECT p FROM Persona p WHERE p.fechaModificacion = :fechaModificacion")})
 public class Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idPersona")
+    @Column(name = "id_persona")
     private Integer idPersona;
     @Basic(optional = false)
     @NotNull
@@ -91,9 +96,19 @@ public class Persona implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "ocupacion")
     private String ocupacion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fecha_registro")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaRegistro;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fecha_modificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
 
     public Persona() {
-        this.idPersona = 0;
+        this.idPersona = 0; 
         this.identificacion = "";
         this.tipoIdentificacion = "";
         this.nombres = "";
@@ -103,6 +118,8 @@ public class Persona implements Serializable {
         this.edad = "";
         this.ciudad = "";
         this.ocupacion = "";
+        this.fechaRegistro = null;
+        this.fechaModificacion = null;
     }
 
     public Persona(Integer idPersona) {
@@ -116,6 +133,8 @@ public class Persona implements Serializable {
         this.edad = "";
         this.ciudad = "";
         this.ocupacion = "";
+        this.fechaRegistro = null;
+        this.fechaModificacion = null;
     }
 
     public Persona(String identificacion, String tipoIdentificacion, String nombres, String apellidos, String telefono, String correoElectronico, String edad, String ciudad, String ocupacion) {
@@ -129,9 +148,11 @@ public class Persona implements Serializable {
         this.edad = edad;
         this.ciudad = ciudad;
         this.ocupacion = ocupacion;
+        this.fechaRegistro = null;
+        this.fechaModificacion = null;
     }
-
-    public Persona(Integer idPersona, String identificacion, String tipoIdentificacion, String nombres, String apellidos, String telefono, String correoElectronico, String edad, String ciudad, String ocupacion) {
+    
+     public Persona(Integer idPersona, String identificacion, String tipoIdentificacion, String nombres, String apellidos, String telefono, String correoElectronico, String edad, String ciudad, String ocupacion) {
         this.idPersona = idPersona;
         this.identificacion = identificacion;
         this.tipoIdentificacion = tipoIdentificacion;
@@ -142,8 +163,40 @@ public class Persona implements Serializable {
         this.edad = edad;
         this.ciudad = ciudad;
         this.ocupacion = ocupacion;
+        this.fechaRegistro = null;
+        this.fechaModificacion = null;
     }
-    
+
+    public Persona(String identificacion, String tipoIdentificacion, String nombres, String apellidos, String telefono, String correoElectronico, String edad, String ciudad, String ocupacion, Date fechaRegistro, Date fechaModificacion) {
+        this.idPersona = 0;
+        this.identificacion = identificacion;
+        this.tipoIdentificacion = tipoIdentificacion;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.correoElectronico = correoElectronico;
+        this.edad = edad;
+        this.ciudad = ciudad;
+        this.ocupacion = ocupacion;
+        this.fechaRegistro = fechaRegistro;
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Persona(Integer idPersona, String identificacion, String tipoIdentificacion, String nombres, String apellidos, String telefono, String correoElectronico, String edad, String ciudad, String ocupacion, Date fechaRegistro, Date fechaModificacion) {
+        this.idPersona = idPersona;
+        this.identificacion = identificacion;
+        this.tipoIdentificacion = tipoIdentificacion;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.correoElectronico = correoElectronico;
+        this.edad = edad;
+        this.ciudad = ciudad;
+        this.ocupacion = ocupacion;
+        this.fechaRegistro = fechaRegistro;
+        this.fechaModificacion = fechaModificacion;
+    }
+
     public Integer getIdPersona() {
         return idPersona;
     }
@@ -222,6 +275,22 @@ public class Persona implements Serializable {
 
     public void setOcupacion(String ocupacion) {
         this.ocupacion = ocupacion;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public Date getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
     }
 
     @Override
